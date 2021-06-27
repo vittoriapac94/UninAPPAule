@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en" class="h-100"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors"/>
+    <meta name="generator" content="Hugo 0.80.0"/>
+    <title>Prenota</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  	<script>
+  		function changeColor(){
+  			document.getElementById("tendina").style.color = "white";
+  		}
+  		
+  		function restoreColor(){
+  			document.getElementById("tendina").style.color = "rgba(255, 255, 255, .5)";
+  		}
+  		
+  		function saveLezione(lez){
+		    var lezione = lez;
+		    alert(lezione);
+  		}
+  	</script>
+
+	<link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
+
+    
+	<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180"/>
+	<link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png"/>
+	<link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png"/>
+	<link rel="manifest" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/manifest.json"/>
+	<link rel="mask-icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3"/>
+	<link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/favicon.ico"/>
+	<link rel="stylesheet" href="/css/newstyle.css" />
+	<meta name="theme-color" content="#7952b3"/>
+
+    <link href="https://getbootstrap.com/docs/5.0/examples/cover/cover.css" rel="stylesheet"/>
+    
+	
+  </head>
+
+<body class="d-flex h-100 text-center text-white bg-dark">
+    
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <div>  
+      <ul class="nav nav-masthead justify-content-center float-md-end" style="float: right;">
+	    <li class="nav-item" style="padding-right: 15px;">
+	      <a class="nav-link active" href="#">Prenota</a>
+	    </li>
+	    <li class="nav-item" style="padding-right: 15px;">
+	      <a class="nav-link" th:href="@{/lectures(currentUser=${currentUser})}">Lezioni</a>
+	    </li>
+	     <li class="nav-item" th:if="${currentUser == null}"><a class="nav-link" th:href="@{/login}">Log in</a></li>
+	    <li class="nav-item dropdown">
+	      <a class="nav-link dropdown-toggle" id= "tendina" data-toggle="dropdown" href="#" onmouseover="changeColor()" onmouseout="restoreColor()" th:if="${currentUser}">Profilo</a>
+	      <div class="dropdown-menu" style="text-shadow: 0 0;">
+	      	<label th:text="${currentUser.getFullname()}" style="padding-left: 17px;"></label>
+	      	<br>
+	      	<label th:text="${currentUser.getMatricola()}" style="padding-left: 17px;"></label>
+	      	<div class="dropdown-divider"></div>
+	        <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+	      </div>
+	    </li>
+     </ul>
+ 
+    
+    </div>
+  </header>
+
+<main>
+<p><span th:text="${lezione.getAula()}"></span></p>
+<div class="movie-container">
+    <style scoped>
+		@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+		@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css");
+		
+		body {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		  	margin: 0;
+		}
+		
+		.movie-container {
+		  margin: 20px 0px;
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  flex-direction: column;
+		}
+		
+		.movie-container select {
+		  appearance: none;
+		  -moz-appearance: none;
+		  -webkit-appearance: none;
+		  border: 0;
+		  padding: 5px 15px;
+		  margin-bottom: 40px;
+		  font-size: 14px;
+		  border-radius: 5px;
+		}
+		
+		.container {
+		  perspective: 1000px;
+		  display: flex;
+		  flex-direction: column;
+		  justify-content: center;
+		  align-items: center;
+		  background-color: rgba(255,255,255,0.7);
+		  border-radius: 10px;
+		}
+		
+		.seat {
+		  background-color: #fff;
+		  height: 12px;
+		  width: 15px;
+		  margin-left: 5px;
+		  margin-right: 5px;
+		  margin-top: 3px;
+		  margin-bottom: 3px;
+		  border-top-left-radius: 10px;
+		  border-top-right-radius: 10px;
+		}
+		
+		.free {
+		  background-color: #fff;
+		}
+		
+		.selected {
+		  background-color: #0081cb;
+		}
+		
+		.occupied {
+		  background-color: #cc0000 ;
+		}
+		
+		.deleted {
+		  background-color: black;
+		}
+		
+		.seat:not(.occupied):not(.deleted):hover {
+		  cursor: pointer;
+		  transform: scale(1.2);
+		}
+		
+		.showcase .seat:not(.occupied):not(deleted):hover {
+		  cursor: default;
+		  transform: scale(1);
+		}
+		
+		
+		.showcase {
+		  display: flex;
+		  justify-content: space-between;
+		  list-style-type: none;
+		  background: rgba(0,0,0,0.1);
+		  padding: 5px 10px;
+		  border-radius: 5px;
+		  color: #777;
+		}
+		
+		.showcase li {
+		  color: white;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		  margin: 0 10px;
+		}
+		
+		.showcase li small {
+		  margin-left: 2px;
+		}
+		
+		.row {
+		  --bs-gutter-x: 0;
+		  --bs-gutter-y: 0;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		}
+		
+		.screen {
+		  background: black;
+		  height: 70px;
+		  width: 250px;
+		  margin: 15px 0;
+		  transform: rotateX(-45deg);
+		  border: #c67f66 solid 5px;
+		}
+		
+		p.text {
+		  margin: 40px 0;
+		}
+		
+		p.text span {
+		  color: #0081cb;
+		  font-weight: 600;
+		  box-sizing: content-box;
+		}
+		
+		.credits a {
+		  color: #fff;
+		}
+    
+    </style>
+
+	  
+	  <ul class="showcase">
+	    <li>
+	      <div class="seat free"></div>
+	      <small>Libero</small>
+	    </li>
+	    <li>
+	      <div class="seat selected"></div>
+	      <small>Selezionato</small>
+	    </li>
+	    <li>
+	      <div class="seat occupied"></div>
+	      <small>Occupato</small>
+	    </li>
+	    <li>
+	      <div class="seat deleted"></div>
+	      <small>Non disponibile</small>
+	    </li>     
+	  </ul>
+	  
+	  <div class="container">
+	    
+	    <div class="screen"></div>
+	    
+		<div class="row" th:each="riga: ${#numbers.sequence(0, aula.getRighe()-1)}">
+		   <div class="seat" th:each="colonna: ${#numbers.sequence(0, aula.getColonne()-1)}" th:attr="colonna=${colonna}, riga=${riga}" th:classappend="${lezione.getPostiOccupati()[riga][colonna].equalsIgnoreCase('libero')} ? free : (${lezione.getPostiOccupati()[riga][colonna].equalsIgnoreCase('non_disponibile')} ? deleted : (${lezione.getPostiOccupati()[riga][colonna].equalsIgnoreCase('occupato')} ? occupied))"></div>
+		</div>
+		
+	    
+	    <p class="text">
+	      Sono ancora disponibili <span id="count">0</span> posti per la lezione di <span th:text="${lezione.getNome()}"></span>
+	    </p>
+	  </div>
+	  
+	</div>
+	
+	<a class="btn btn-light" id="buttonPrenota" style="visibility: hidden;" th:attr="currentUser=${currentUser}, idLezione=${lezione.getLezioneId()}" th:href="@{/prenotazione}">PRENOTA</a>
+
+</main>
+	
+	<footer class="mt-auto text-white-50">
+    <br>Creato da Giulio Capodagli, Danilo Gentile, Vittoria Pacchiano
+    </footer>
+</div>
+
+	<script id="rendered-js">
+		const container = document.querySelector('.container');
+		const seats = document.querySelectorAll('.row .seat:not(.occupied):not(.deleted)');
+		const postiLiberi = seats.length;
+		const seatsDisponibili = document.querySelectorAll('.row .seat.free').length;
+		const count = document.getElementById('count');
+		count.innerText = seatsDisponibili;
+	
+
+		//Seat click event
+		container.addEventListener('click', e => {
+		  
+		  if (e.target.classList.contains('seat') &&
+		     !e.target.classList.contains('occupied') && !e.target.classList.contains('deleted')) {
+			  var selectedSeat = document.querySelectorAll('.row .seat.selected');
+			  if(selectedSeat.length != 0) {
+				  for (let i = 0; i < selectedSeat.length; i++) {
+					  selectedSeat[i].classList.remove('selected');
+					  selectedSeat[i].classList.add('free');
+					}
+			  }
+			  e.target.classList.remove('free');
+		      e.target.classList.add('selected');
+		      
+		      var riga = e.target.getAttribute('riga');
+		      var colonna = e.target.getAttribute('colonna');
+		      
+		      var currentUser = document.getElementById('buttonPrenota').getAttribute("currentUser");
+		      var idLezione = document.getElementById('buttonPrenota').getAttribute("idLezione");
+		      
+		      var hrBase = encodeURI("/prenotazione?currentUser="+currentUser+"&idLezione="+idLezione);
+		      var hr = document.getElementById('buttonPrenota').getAttribute("href");
+		      var hrefToAppend = "&riga="+riga+"&colonna="+colonna;
+		      document.getElementById('buttonPrenota').setAttribute("href", hrBase+hrefToAppend);
+		      document.getElementById('buttonPrenota').style.visibility="visible";
+		      
+		  }
+		});	
+	</script>
+
+    
+  </body>
+</html>
